@@ -1,18 +1,14 @@
-from functools import lru_cache
-mod = 10**9 + 7
-if __name__== '__main__':
+
+if __name__=='__main__':
     n = int(input())
-    n = 100
-    @lru_cache(maxsize=None)
-    def helper(n):
-        if n<0:
-            return 0
-        if n==0:
-            return 1
-        sol = 0
-        for i in range(1, 7):
-            sol += helper(n-i)
-        return sol%mod
+    mod = 10**9 + 7
     
-    print(helper(n)%mod)
+    dp = [0]*(n+2)
+    dp[1] = 1
     
+    for i in range(1, n+2):
+        for j in range(1, 7):
+            if i >=j:
+                dp[i] = (dp[i] + dp[i-j]) %mod
+    
+    print(dp[-1])
